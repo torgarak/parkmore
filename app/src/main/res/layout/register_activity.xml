@@ -9,40 +9,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.uph.parkmore.RegisterActivity"><![CDATA[
-
-    Button
-        android:text="Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="60dp"
-        android:id="@+id/button2"/>
-
-    ]]>
+    tools:context="edu.uph.parkmore.RegisterActivity">
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_below="@+id/editText3"
-        android:layout_alignEnd="@+id/editText3"
-        android:id="@+id/editText4"
+        android:layout_below="@+id/register_email_edit"
+        android:id="@+id/register_name_edit"
         android:layout_alignParentStart="true"
-        android:hint="Full Name"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editText3"
-        android:hint="Email"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
+        android:hint="Full Name"
         android:layout_alignParentEnd="true"/>
 
     <EditText
@@ -50,9 +27,9 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText5"
+        android:id="@+id/register_password_edit"
         android:hint="Password"
-        android:layout_below="@+id/editText4"
+        android:layout_below="@+id/register_name_edit"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"/>
 
@@ -61,9 +38,9 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:layout_below="@+id/editText5"
+        android:layout_below="@+id/register_password_edit"
         android:layout_alignParentStart="true"
-        android:id="@+id/editText6"
+        android:id="@+id/register_password_confirm_edit"
         android:layout_alignParentEnd="true"
         android:hint="Confirm Password"/>
 
@@ -72,9 +49,9 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/register_password_confirm_edit"
         android:layout_alignParentStart="true"
-        android:id="@+id/editText7"
+        android:id="@+id/register_license_plate_number_edit"
         android:layout_alignParentEnd="true"
         android:hint="License Plate Number"/>
 
@@ -82,8 +59,19 @@
         android:text="Sign Up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:layout_below="@+id/editText7"
+        android:id="@+id/register_button"
+        android:layout_below="@+id/register_license_plate_number_edit"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/register_email_edit"
+        android:hint="Email"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"/>
 
