@@ -3,7 +3,7 @@ package edu.uph.parkmore;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class ViewReservationActivity extends Activity
+public class ManageReservationActivity extends Activity
 {
 
     @Override

@@ -7,11 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,6 +27,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.Callable;
 
 import static android.R.attr.duration;
 import static android.R.attr.text;
@@ -62,17 +66,7 @@ public class RegisterActivity extends Activity
             {
                 if (!password_confirm_edit.getText().toString().equals(password_edit.getText().toString()))
                 {
-                    AlertDialog dlg = new AlertDialog.Builder(RegisterActivity.this).create();
-                    dlg.setTitle("Error");
-                    dlg.setMessage("Password does not match the confirm password.");
-                    dlg.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener()
-                    {
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                            dialog.dismiss();
-                        }
-                    });
-                    dlg.show();
+                    Global.show_alert(RegisterActivity.this, "Error", "Password does not match the confirm password.");
                     return;
                 }
                 try
@@ -108,65 +102,7 @@ public class RegisterActivity extends Activity
         @Override
         protected String doInBackground(String... params)
         {
-            HttpURLConnection url_connection = null;
-            BufferedReader reader = null;
-            String response;
-            try
-            {
-                url_connection = (HttpURLConnection) new URL(Global.SERVER_URL).openConnection();
-                url_connection.setDoOutput(true);
-                url_connection.setRequestMethod("POST");
-                url_connection.setRequestProperty("Content-Type", "application/json");
-                url_connection.setRequestProperty("Accept", "application/json");
-                url_connection.setRequestProperty("Accept-Charset", "utf-8");
-                Writer writer = new BufferedWriter(new OutputStreamWriter(url_connection.getOutputStream(), "UTF-8"));
-                writer.write(params[0]);
-                writer.close();
-
-                InputStream inputstream = url_connection.getInputStream();
-                StringBuffer buffer = new StringBuffer();
-                if (inputstream == null)
-                {
-                    return null;
-                }
-                reader = new BufferedReader(new InputStreamReader(inputstream));
-
-                String line;
-                while ((line = reader.readLine()) != null)
-                {
-                    buffer.append(line + "\n");
-                }
-                reader.close();
-                if (buffer.length() == 0)
-                {
-                    return null;
-                }
-                response = buffer.toString();
-                return response;
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-            finally
-            {
-                if (url_connection != null)
-                {
-                    url_connection.disconnect();
-                }
-                if (reader != null)
-                {
-                    try
-                    {
-                        reader.close();
-                    }
-                    catch (final IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            return null;
+            return Global.send_post_request(params[0]);
         }
 
 
@@ -180,56 +116,33 @@ public class RegisterActivity extends Activity
             {
                 if (param == null)
                 {
-                    AlertDialog dlg = new AlertDialog.Builder(RegisterActivity.this).create();
-                    dlg.setTitle("Error");
-                    dlg.setMessage("Empty response.");
-                    dlg.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface dialog, int which)
-                                {
-                                    dialog.dismiss();
-                                }
-                            }
-                    );
-                    dlg.show();
+                    Global.show_alert(RegisterActivity.this, "Error", "Connection error.");
                     return;
                 }
                 json = new JSONObject(param);
                 if (json.getBoolean("success") == true)
                 {
-                    AlertDialog dlg = new AlertDialog.Builder(RegisterActivity.this).create();
-                    dlg.setTitle("Success");
-                    dlg.setMessage("Account created.");
-                    dlg.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface dialog, int which)
-                                {
-                                    dialog.dismiss();
-                                    RegisterActivity.this.finish();
-                                }
-                            }
-                    );
-                    dlg.show();
+                    Global.show_alert(RegisterActivity.this, "Success", "Account created.", new Callable<Void>()
+                    {
+                        @Override
+                        public Void call() throws Exception
+                        {
+                            RegisterActivity.this.finish();
+                            return null;
+                        }
+                    });
                     return;
 
                 }
                 else
                 {
-                    AlertDialog dlg = new AlertDialog.Builder(RegisterActivity.this).create();
-                    dlg.setTitle("Error");
-                    dlg.setMessage("Failed.");
-                    dlg.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface dialog, int which)
-                                {
-                                    dialog.dismiss();
-                                }
-                            }
-                    );
-                    dlg.show();
+                    JSONArray error_codes = json.getJSONArray("error_codes");
+                    String error_string = "";
+                    for (int i = 0; i < error_codes.length(); i++)
+                    {
+                        error_string += error_codes.getString(i) + " ";
+                    }
+                    Global.show_alert(RegisterActivity.this, "Error",  error_string);
                 }
             }
             catch (JSONException e)

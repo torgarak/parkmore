@@ -17,33 +17,24 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/textView"
-        android:textAppearance="@android:style/TextAppearance.Medium"/>
-
-    <TextView
-        android:text="$USER$"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/textView"
+        android:id="@+id/menu_text"
         android:textAppearance="@android:style/TextAppearance.Medium"/>
 
     <Button
-        android:text="View Reservation"
+        android:text="Manage Reservation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button3"
+        android:layout_below="@+id/menu_reserve_button"
         android:layout_alignParentStart="true"
-        android:id="@+id/button5"
+        android:id="@+id/menu_manage_button"
         android:layout_alignParentEnd="true"/>
 
     <Button
-        android:text="Logout"
+        android:text="Sign Out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button4"
-        android:layout_below="@+id/button5"
+        android:id="@+id/menu_logout_button"
+        android:layout_below="@+id/menu_manage_button"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"/>
 
@@ -51,9 +42,18 @@
         android:text="Reserve a Parking Spot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button3"
-        android:layout_below="@+id/textView"
+        android:id="@+id/menu_reserve_button"
+        android:layout_below="@+id/menu_text"
         android:layout_alignParentStart="true"
         android:layout_marginTop="28dp"
         android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:text="$USER$"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/menu_name_text"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/menu_text"/>
 </RelativeLayout>

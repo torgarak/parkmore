@@ -54,4 +54,14 @@
         android:layout_centerHorizontal="true"
         android:textColor="?android:attr/textColorLink"/>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:ems="10"
+        android:layout_below="@+id/login_register_view"
+        android:layout_alignParentStart="true"
+        android:id="@+id/editText2"
+        android:inputType="textWebEditText"/>
+
 </RelativeLayout>
