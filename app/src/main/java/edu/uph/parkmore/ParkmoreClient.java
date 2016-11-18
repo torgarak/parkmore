@@ -61,7 +61,9 @@ public class ParkmoreClient
             // get server response
             InputStream inputstream = connection.getInputStream();
             Scanner s = new java.util.Scanner(inputstream).useDelimiter("\\A");
-            return s.hasNext() ? s.next() : "";
+            String tok = s.hasNext() ? s.next() : "";
+            inputstream.close();;
+            return tok;
         }
         catch (IOException e)
         {

@@ -79,7 +79,7 @@ public class ReserveActivity extends Activity implements DatePickerFragment.OnDa
                     LocalDateTime start_dt = local_fmt.parseLocalDateTime(start_dt_edit.getText().toString());
                     LocalDateTime end_dt = local_fmt.parseLocalDateTime(end_dt_edit.getText().toString());
                     DateTime start_utc = start_dt.toDateTime().withZone(DateTimeZone.UTC);
-                    DateTime end_utc = start_dt.toDateTime().withZone(DateTimeZone.UTC);
+                    DateTime end_utc = end_dt.toDateTime().withZone(DateTimeZone.UTC);
                     // convert to UTC
                     new ReserveAsyncTask().execute(
                             new JSONObject()

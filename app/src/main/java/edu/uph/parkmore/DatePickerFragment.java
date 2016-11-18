@@ -33,7 +33,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day)
     {
-        LocalDate d = new LocalDate(year, month, day);
+        LocalDate d = new LocalDate(year, month + 1, day);
         this.listener.on_date_picked(d);
     }
 
