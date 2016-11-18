@@ -1,41 +1,18 @@
 package edu.uph.parkmore;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.concurrent.Callable;
-
-import static android.R.attr.duration;
-import static android.R.attr.text;
-import static edu.uph.parkmore.R.id.login_button;
-import static edu.uph.parkmore.R.id.login_email_edit;
-import static edu.uph.parkmore.R.id.login_password_edit;
-import static edu.uph.parkmore.R.id.register_email_edit;
-import static edu.uph.parkmore.R.id.register_password_edit;
 
 public class RegisterActivity extends Activity
 {
@@ -83,6 +60,8 @@ public class RegisterActivity extends Activity
                 catch (JSONException e)
                 {
                     e.printStackTrace();
+                    Global.show_alert(RegisterActivity.this, "Error", "Connection error.");
+                    return;
                 }
 
             }
@@ -102,7 +81,7 @@ public class RegisterActivity extends Activity
         @Override
         protected String doInBackground(String... params)
         {
-            return Global.send_post_request(params[0]);
+            return ParkmoreClient.send_and_receive_json(params[0]);
         }
 
 
@@ -148,6 +127,8 @@ public class RegisterActivity extends Activity
             catch (JSONException e)
             {
                 e.printStackTrace();
+                Global.show_alert(RegisterActivity.this, "Error", "JSON parsing error.");
+                return;
             }
         }
 

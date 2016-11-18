@@ -30,10 +30,6 @@ public class LoginActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        if (checkSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED)
-        {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.INTERNET}, PERMISSIONS_ID);
-        }
         setContentView(R.layout.login_activity);
         email_edit = (EditText) findViewById(R.id.login_email_edit);
         password_edit = (EditText) findViewById(R.id.login_password_edit);
@@ -74,6 +70,10 @@ public class LoginActivity extends Activity
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
+        if (checkSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.INTERNET}, PERMISSIONS_ID);
+        }
     }
 
     class LoginAsyncTask extends AsyncTask<String, Void, String>
@@ -89,7 +89,7 @@ public class LoginActivity extends Activity
         @Override
         protected String doInBackground(String... params)
         {
-            return Global.send_post_request(params[0]);
+            return ParkmoreClient.send_and_receive_json(params[0]);
         }
 
 
@@ -131,6 +131,8 @@ public class LoginActivity extends Activity
             catch (JSONException e)
             {
                 e.printStackTrace();
+                Global.show_alert(LoginActivity.this, "Error", "JSON parsing error.");
+                return;
             }
         }
 

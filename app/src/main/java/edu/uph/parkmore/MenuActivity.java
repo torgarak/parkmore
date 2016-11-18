@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,9 +12,6 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import static android.R.attr.name;
-import static java.lang.Boolean.getBoolean;
 
 public class MenuActivity extends Activity
 {
@@ -95,7 +91,7 @@ public class MenuActivity extends Activity
         @Override
         protected String doInBackground(String... params)
         {
-            return Global.send_post_request(params[0]);
+            return ParkmoreClient.send_and_receive_json(params[0]);
         }
 
 
@@ -151,7 +147,7 @@ public class MenuActivity extends Activity
         @Override
         protected String doInBackground(String... params)
         {
-            return Global.send_post_request(params[0]);
+            return ParkmoreClient.send_and_receive_json(params[0]);
         }
 
 
@@ -173,7 +169,8 @@ public class MenuActivity extends Activity
                 json = new JSONObject(param);
                 if (json.getBoolean("success"))
                 {
-                    name_text.setText(json.getString("name") + " (" + json.getString("license_plate_number") + ")");
+                    String plate = json.getString("license_plate_number");
+                    name_text.setText(json.getString("name") + (plate.equals("") ? "" : " (" + plate + ")"));
                 }
                 else
                 {
@@ -189,6 +186,8 @@ public class MenuActivity extends Activity
             catch (JSONException e)
             {
                 e.printStackTrace();
+                Global.show_alert(MenuActivity.this, "Error", "JSON parsing error.");
+                return;
             }
         }
 
