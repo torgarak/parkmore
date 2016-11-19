@@ -17,7 +17,10 @@ public class MenuActivity extends Activity
 {
     private TextView name_text;
     private Button reserve_button;
-    private Button manage_button;
+    private Button extend_button;
+    private Button cancel_button;
+    private Button check_in_button;
+    private Button check_out_button;
     private Button logout_button;
 
     @Override
@@ -28,8 +31,82 @@ public class MenuActivity extends Activity
 
         name_text = (TextView) findViewById(R.id.menu_name_text);
         reserve_button = (Button) findViewById(R.id.menu_reserve_button);
-        manage_button = (Button) findViewById(R.id.menu_manage_button);
+        extend_button = (Button) findViewById(R.id.menu_extend_button);
+        cancel_button = (Button) findViewById(R.id.menu_cancel_button);
+        check_in_button = (Button) findViewById(R.id.menu_check_in_button);
+        check_out_button = (Button) findViewById(R.id.menu_check_out_button);
         logout_button = (Button) findViewById(R.id.menu_logout_button);
+
+        reserve_button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent i = new Intent(MenuActivity.this, ReserveActivity.class);
+                startActivity(i);
+            }
+        });
+
+        extend_button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent i = new Intent(MenuActivity.this, ExtendActivity.class);
+                startActivity(i);
+            }
+        });
+
+
+        cancel_button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                try
+                {
+                    new LogoutAsyncTask().execute(new JSONObject().put("action", "cancel").toString());
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        check_in_button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                try
+                {
+                    new LogoutAsyncTask().execute(new JSONObject().put("action", "checkin").toString());
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        check_out_button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                try
+                {
+                    new LogoutAsyncTask().execute(new JSONObject().put("action", "checkout").toString());
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         logout_button.setOnClickListener(new View.OnClickListener()
         {
@@ -47,27 +124,6 @@ public class MenuActivity extends Activity
             }
         });
 
-        reserve_button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-
-                Intent i = new Intent(MenuActivity.this, ReserveActivity.class);
-                startActivity(i);
-            }
-        });
-
-        manage_button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-
-                Intent i = new Intent(MenuActivity.this, ManageReservationActivity.class);
-                startActivity(i);
-            }
-        });
         try
         {
             new GetUserDataAsyncTask().execute(new JSONObject().put("action", "get_user_data").toString());
@@ -134,6 +190,173 @@ public class MenuActivity extends Activity
 
     }
 
+    class CheckInAsyncTask extends AsyncTask<String, Void, String>
+    {
+        private ProgressDialog progress;
+
+        @Override
+        protected void onPreExecute()
+        {
+            progress = ProgressDialog.show(MenuActivity.this, "", "Checking in...", true, false);
+        }
+
+        @Override
+        protected String doInBackground(String... params)
+        {
+            return ParkmoreClient.send_and_receive_json(params[0]);
+        }
+
+
+        @Override
+        protected void onPostExecute(String param)
+        {
+            if (progress.isShowing())
+            {
+                progress.dismiss();
+            }
+            if (param == null)
+            {
+                Global.show_alert(MenuActivity.this, "Error", "Connection error.");
+                return;
+            }
+            JSONObject json;
+            try
+            {
+                json = new JSONObject(param);
+                if (json.getBoolean("success"))
+                {
+                    Global.show_alert(MenuActivity.this, "Success", "Checked in.");
+                }
+                else
+                {
+                    JSONArray error_codes = json.getJSONArray("error_codes");
+                    String error_string = "";
+                    for (int i = 0; i < error_codes.length(); i++)
+                    {
+                        error_string += error_codes.getString(i) + " ";
+                    }
+                    Global.show_alert(MenuActivity.this, "Error", error_string);
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    class CheckOutAsyncTask extends AsyncTask<String, Void, String>
+    {
+        private ProgressDialog progress;
+
+        @Override
+        protected void onPreExecute()
+        {
+            progress = ProgressDialog.show(MenuActivity.this, "", "Checking out...", true, false);
+        }
+
+        @Override
+        protected String doInBackground(String... params)
+        {
+            return ParkmoreClient.send_and_receive_json(params[0]);
+        }
+
+
+        @Override
+        protected void onPostExecute(String param)
+        {
+            if (progress.isShowing())
+            {
+                progress.dismiss();
+            }
+            if (param == null)
+            {
+                Global.show_alert(MenuActivity.this, "Error", "Connection error.");
+                return;
+            }
+            JSONObject json;
+            try
+            {
+                json = new JSONObject(param);
+                if (json.getBoolean("success"))
+                {
+                    Global.show_alert(MenuActivity.this, "Success", "Checked out.");
+                }
+                else
+                {
+                    JSONArray error_codes = json.getJSONArray("error_codes");
+                    String error_string = "";
+                    for (int i = 0; i < error_codes.length(); i++)
+                    {
+                        error_string += error_codes.getString(i) + " ";
+                    }
+                    Global.show_alert(MenuActivity.this, "Error", error_string);
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    class CancelAsyncTask extends AsyncTask<String, Void, String>
+    {
+        private ProgressDialog progress;
+
+        @Override
+        protected void onPreExecute()
+        {
+            progress = ProgressDialog.show(MenuActivity.this, "", "Checking in...", true, false);
+        }
+
+        @Override
+        protected String doInBackground(String... params)
+        {
+            return ParkmoreClient.send_and_receive_json(params[0]);
+        }
+
+
+        @Override
+        protected void onPostExecute(String param)
+        {
+            if (progress.isShowing())
+            {
+                progress.dismiss();
+            }
+            if (param == null)
+            {
+                Global.show_alert(MenuActivity.this, "Error", "Connection error.");
+                return;
+            }
+            JSONObject json;
+            try
+            {
+                json = new JSONObject(param);
+                if (json.getBoolean("success"))
+                {
+                    Global.show_alert(MenuActivity.this, "Success", "Your reservation has been cancelled ");
+                }
+                else
+                {
+                    JSONArray error_codes = json.getJSONArray("error_codes");
+                    String error_string = "";
+                    for (int i = 0; i < error_codes.length(); i++)
+                    {
+                        error_string += error_codes.getString(i) + " ";
+                    }
+                    Global.show_alert(MenuActivity.this, "Error", error_string);
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+    }
     class GetUserDataAsyncTask extends AsyncTask<String, Void, String>
     {
         private ProgressDialog progress;

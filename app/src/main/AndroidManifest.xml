@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".ReserveActivity">
         </activity>
-        <activity android:name=".ManageReservationActivity">
+        <activity android:name=".ExtendActivity">
         </activity>
     </application>
 
