@@ -21,7 +21,7 @@
         android:fontFamily="sans-serif"
         android:textColor="?android:attr/textColorLink"
         tools:text="$END"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/reserve_label_end"
         android:layout_alignParentStart="true"/>
 
     <TextView
@@ -34,14 +34,14 @@
         android:fontFamily="sans-serif"
         android:textColor="?android:attr/textColorLink"
         tools:text="$START"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/reserve_label_start"
         android:layout_alignParentStart="true"/>
 
     <TextView
         android:text="Park anytime after:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4"
+        android:id="@+id/reserve_label_start"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="14dp"/>
@@ -50,7 +50,7 @@
         android:text="Exit anytime before:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView5"
+        android:id="@+id/reserve_label_end"
         android:layout_below="@+id/reserve_start_dt_edit"
         android:layout_alignParentStart="true"
         android:layout_marginTop="14dp"/>

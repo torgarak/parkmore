@@ -9,13 +9,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.TimeZone;
+
+import static android.R.attr.start;
+import static org.joda.time.DateTimeZone.UTC;
+
 public class MenuActivity extends Activity
 {
     private TextView name_text;
+    private Button view_button;
     private Button reserve_button;
     private Button extend_button;
     private Button cancel_button;
@@ -30,12 +41,23 @@ public class MenuActivity extends Activity
         setContentView(R.layout.menu_activity);
 
         name_text = (TextView) findViewById(R.id.menu_name_text);
+        view_button = (Button) findViewById(R.id.menu_view_button);
         reserve_button = (Button) findViewById(R.id.menu_reserve_button);
         extend_button = (Button) findViewById(R.id.menu_extend_button);
         cancel_button = (Button) findViewById(R.id.menu_cancel_button);
         check_in_button = (Button) findViewById(R.id.menu_check_in_button);
         check_out_button = (Button) findViewById(R.id.menu_check_out_button);
         logout_button = (Button) findViewById(R.id.menu_logout_button);
+
+        view_button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent i = new Intent(MenuActivity.this, ViewActivity.class);
+                startActivity(i);
+            }
+        });
 
         reserve_button.setOnClickListener(new View.OnClickListener()
         {
@@ -67,7 +89,7 @@ public class MenuActivity extends Activity
             {
                 try
                 {
-                    new LogoutAsyncTask().execute(new JSONObject().put("action", "cancel").toString());
+                    new CancelAsyncTask().execute(new JSONObject().put("action", "cancel").toString());
                 }
                 catch (JSONException e)
                 {
@@ -83,7 +105,7 @@ public class MenuActivity extends Activity
             {
                 try
                 {
-                    new LogoutAsyncTask().execute(new JSONObject().put("action", "checkin").toString());
+                    new CheckInAsyncTask().execute(new JSONObject().put("action", "checkin").toString());
                 }
                 catch (JSONException e)
                 {
@@ -99,7 +121,7 @@ public class MenuActivity extends Activity
             {
                 try
                 {
-                    new LogoutAsyncTask().execute(new JSONObject().put("action", "checkout").toString());
+                    new CheckOutAsyncTask().execute(new JSONObject().put("action", "checkout").toString());
                 }
                 catch (JSONException e)
                 {
@@ -357,6 +379,7 @@ public class MenuActivity extends Activity
         }
 
     }
+
     class GetUserDataAsyncTask extends AsyncTask<String, Void, String>
     {
         private ProgressDialog progress;

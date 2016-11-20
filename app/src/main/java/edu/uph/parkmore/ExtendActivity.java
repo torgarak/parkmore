@@ -36,8 +36,9 @@ public class ExtendActivity extends Activity implements DatePickerFragment.OnDat
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.extend_activity);
+
         end_dt_edit = (TextView) findViewById(R.id.extend_end_dt_edit);
-        extend_button = (Button) findViewById(R.id.reserve_button);
+        extend_button = (Button) findViewById(R.id.extend_button);
         LocalDateTime dt = Global.round_minutes(new DateTime(), 10).toLocalDateTime();
         end_dt_edit.setText(dt.plusMinutes(10).toString(local_fmt));
         end_dt_edit.setOnClickListener(new View.OnClickListener()
