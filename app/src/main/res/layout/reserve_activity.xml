@@ -55,28 +55,44 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="14dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/reserve_button"
-        android:text="Reserve Now"
-        android:layout_marginTop="48dp"
-        android:layout_below="@+id/menu_warning_text"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"/>
-
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/menu_warning_text"
-        android:layout_below="@+id/reserve_end_dt_edit"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="13dp"
         tools:text="Warning: Your vehicle will be towed if you did not check out before the end time."
         android:textSize="18sp"
         android:textColor="@android:color/holo_red_dark"
-        android:textStyle="normal|bold"/>
+        android:textStyle="normal|bold"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:text="Price ($ 10 / Hour)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/reserve_label_text"
+        android:layout_below="@+id/reserve_end_dt_edit"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:text="$ 1.67"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reserve_price_text"
+        android:layout_below="@+id/reserve_label_text"
+        android:layout_alignParentStart="true"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reserve_button"
+        android:text="Reserve Now"
+        android:layout_below="@+id/menu_warning_text"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"/>
 
 
 </RelativeLayout>

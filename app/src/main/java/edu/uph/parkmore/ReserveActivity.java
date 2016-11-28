@@ -15,15 +15,18 @@ import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
+import org.joda.time.Minutes;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.Callable;
 
+import static android.R.attr.start;
 import static org.joda.time.DateTimeFieldType.secondOfMinute;
 import static org.joda.time.DateTimeZone.UTC;
 
@@ -33,12 +36,15 @@ public class ReserveActivity extends Activity implements DatePickerFragment.OnDa
 
     private TextView start_dt_edit;
     private TextView end_dt_edit;
+    private TextView price_text;
     private Button reserve_button;
     private LocalDate date;
     private LocalTime time;
     private DateTimeFormatter sql_fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
     private DateTimeFormatter local_fmt = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
     boolean set_start = false;
+    public static LocalDateTime start_dt;
+    public static LocalDateTime end_dt;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -47,6 +53,7 @@ public class ReserveActivity extends Activity implements DatePickerFragment.OnDa
 
         start_dt_edit = (TextView) findViewById(R.id.reserve_start_dt_edit);
         end_dt_edit = (TextView) findViewById(R.id.reserve_end_dt_edit);
+        price_text = (TextView) findViewById(R.id.reserve_price_text);
         reserve_button = (Button) findViewById(R.id.reserve_button);
         LocalDateTime dt = Global.round_minutes(new DateTime(), 10).toLocalDateTime();
         start_dt_edit.setText(dt.toString(local_fmt));
@@ -120,6 +127,10 @@ public class ReserveActivity extends Activity implements DatePickerFragment.OnDa
         {
             end_dt_edit.setText(dt.toString(local_fmt));
         }
+
+        start_dt = local_fmt.parseLocalDateTime(start_dt_edit.getText().toString());
+        end_dt = local_fmt.parseLocalDateTime(end_dt_edit.getText().toString());
+        price_text.setText("$ " + NumberFormat.getCurrencyInstance().format(Minutes.minutesBetween(start_dt, end_dt).getMinutes() * 10 / 6));
     }
 
     class ReserveAsyncTask extends AsyncTask<String, Void, String>
@@ -129,6 +140,7 @@ public class ReserveActivity extends Activity implements DatePickerFragment.OnDa
         @Override
         protected void onPreExecute()
         {
+            start_dt = local_fmt.parseLocalDateTime(start_dt_edit.getText().toString());
             progress = ProgressDialog.show(ReserveActivity.this, "", "Processing...", true, false);
         }
 

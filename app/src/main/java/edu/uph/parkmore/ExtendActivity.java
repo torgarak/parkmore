@@ -13,18 +13,24 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
+import org.joda.time.Minutes;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.util.concurrent.Callable;
+
+import static edu.uph.parkmore.ReserveActivity.end_dt;
+import static edu.uph.parkmore.ReserveActivity.start_dt;
 
 public class ExtendActivity extends Activity implements DatePickerFragment.OnDatePickedListener, TimePickerFragment.OnTimePickedListener
 {
 
     private TextView end_dt_edit;
+    private TextView price_text;
     private Button extend_button;
     private LocalDate date;
     private LocalTime time;
@@ -38,6 +44,7 @@ public class ExtendActivity extends Activity implements DatePickerFragment.OnDat
         setContentView(R.layout.extend_activity);
 
         end_dt_edit = (TextView) findViewById(R.id.extend_end_dt_edit);
+        price_text = (TextView) findViewById(R.id.extend_price_text);
         extend_button = (Button) findViewById(R.id.extend_button);
         LocalDateTime dt = Global.round_minutes(new DateTime(), 10).toLocalDateTime();
         end_dt_edit.setText(dt.plusMinutes(10).toString(local_fmt));
@@ -86,6 +93,7 @@ public class ExtendActivity extends Activity implements DatePickerFragment.OnDat
         //merge
         LocalDateTime dt = Global.round_minutes(date.toLocalDateTime(time).toDateTime(), 10).toLocalDateTime();
         end_dt_edit.setText(dt.toString(local_fmt));
+        price_text.setText("$ " + NumberFormat.getCurrencyInstance().format(Minutes.minutesBetween(ReserveActivity.start_dt, dt).getMinutes() * 10 / 6));
     }
 
     class ExtendAsyncTask extends AsyncTask<String, Void, String>
