@@ -25,16 +25,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"/>
 
-    <Button
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/extend_end_dt_edit"
-        android:text="Extend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/extend_button"
-        android:layout_marginTop="43dp"/>
-
     <TextView
         android:text="Exit anytime before:"
         android:layout_width="wrap_content"
@@ -43,6 +33,28 @@
         android:layout_marginTop="44dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"/>
+
+    <Button
+        android:text="Extend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/extend_button"
+        android:layout_marginTop="101dp"
+        android:layout_below="@+id/extend_end_dt_edit"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:text="Warning: Your vehicle will be towed if you did did not check out before the end time."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/extend_end_dt_edit"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="29dp"
+        android:id="@+id/extend_warning_text"
+        android:layout_alignParentEnd="true"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="normal|bold"/>
     "
 
 </RelativeLayout>

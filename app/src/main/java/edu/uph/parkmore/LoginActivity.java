@@ -23,6 +23,9 @@ public class LoginActivity extends Activity
     private EditText password_edit;
     private TextView register_view;
     private Button login_button;
+    private Button server_addr_button;
+    private EditText server_addr_edit;
+
 
     private static final int PERMISSIONS_ID = 1;
 
@@ -35,6 +38,9 @@ public class LoginActivity extends Activity
         password_edit = (EditText) findViewById(R.id.login_password_edit);
         register_view = (TextView) findViewById(R.id.login_register_view);
         login_button = (Button) findViewById(R.id.login_button);
+        server_addr_button = (Button) findViewById(R.id.login_server_addr_button);
+        server_addr_edit = (EditText) findViewById(R.id.login_server_addr_edit);
+
         login_button.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -62,6 +68,7 @@ public class LoginActivity extends Activity
 
             }
         });
+
         register_view.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -70,10 +77,20 @@ public class LoginActivity extends Activity
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
+
         if (checkSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED)
         {
             requestPermissions(new String[]{Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.INTERNET}, PERMISSIONS_ID);
         }
+
+        server_addr_button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                ParkmoreClient.server_url = server_addr_edit.getText().toString();
+            }
+        });
     }
 
     class LoginAsyncTask extends AsyncTask<String, Void, String>
@@ -132,7 +149,6 @@ public class LoginActivity extends Activity
             {
                 e.printStackTrace();
                 Global.show_alert(LoginActivity.this, "Error", "JSON parsing error.");
-                return;
             }
         }
 

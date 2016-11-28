@@ -54,4 +54,32 @@
         android:layout_centerHorizontal="true"
         android:textColor="?android:attr/textColorLink"/>
 
+    <Button
+        android:text="Set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_server_addr_edit"
+        android:layout_alignParentStart="true"
+        android:id="@+id/login_server_addr_button"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:text="Server address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_register_view"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp"
+        android:id="@+id/textView"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="http://127.0.0.1/api"
+        android:ems="10"
+        android:id="@+id/login_server_addr_edit"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"/>
+
 </RelativeLayout>

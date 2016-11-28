@@ -1,8 +1,5 @@
 package edu.uph.parkmore;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.text.TextUtils;
 
 import java.io.BufferedWriter;
@@ -17,7 +14,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.concurrent.Callable;
 
 /**
  * Created by User on 11/16/2016.
@@ -25,17 +21,17 @@ import java.util.concurrent.Callable;
 
 public class ParkmoreClient
 {
-    public static final String SERVER_URL = "http://192.168.2.173/api/";
+    public static String server_url = "http://127.0.0.1/api/";
 
     // cookie is for php session id
-    public static CookieManager cookie_mgr = new CookieManager();
+    private static CookieManager cookie_mgr = new CookieManager();
 
     public static String send_and_receive_json(String json_string)
     {
         HttpURLConnection connection = null;
         try
         {
-            connection = (HttpURLConnection) new URL(ParkmoreClient.SERVER_URL).openConnection();
+            connection = (HttpURLConnection) new URL(ParkmoreClient.server_url).openConnection();
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
@@ -62,7 +58,7 @@ public class ParkmoreClient
             InputStream inputstream = connection.getInputStream();
             Scanner s = new java.util.Scanner(inputstream).useDelimiter("\\A");
             String tok = s.hasNext() ? s.next() : "";
-            inputstream.close();;
+            inputstream.close();
             return tok;
         }
         catch (IOException e)
