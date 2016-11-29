@@ -10,15 +10,13 @@ import android.widget.TimePicker;
 
 import org.joda.time.LocalTime;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
 /**
- * Created by User on 11/18/2016.
+ * Time Picker Fragment
+ * @author Samuel I. Gunadi
  */
-
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener
 {
 

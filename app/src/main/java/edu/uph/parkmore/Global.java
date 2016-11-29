@@ -9,10 +9,11 @@ import org.joda.time.Duration;
 
 import java.util.concurrent.Callable;
 
-/**
- * Created by User on 11/18/2016.
- */
 
+/**
+ * Useful Functions
+ * @author Samuel I. Gunadi
+ */
 public class Global
 {
 

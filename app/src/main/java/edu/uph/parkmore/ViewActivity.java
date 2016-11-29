@@ -17,6 +17,10 @@ import org.json.JSONObject;
 
 import static org.joda.time.DateTimeZone.UTC;
 
+/**
+ * View Reservation Activity
+ * @author Samuel I. Gunadi
+ */
 public class ViewActivity extends Activity
 {
 

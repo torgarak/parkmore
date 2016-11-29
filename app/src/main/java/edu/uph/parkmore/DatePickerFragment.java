@@ -11,10 +11,11 @@ import org.joda.time.LocalDate;
 
 import java.util.Calendar;
 
-/**
- * Created by User on 11/18/2016.
- */
 
+/**
+ * Date Picker Fragment
+ * @author Samuel I. Gunadi
+ */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener
 {
     @Override

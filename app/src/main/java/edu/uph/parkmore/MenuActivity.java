@@ -9,20 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.TimeZone;
 
-import static android.R.attr.start;
-import static org.joda.time.DateTimeZone.UTC;
-
+/**
+ * Menu Activity
+ * @author Samuel I. Gunadi
+ */
 public class MenuActivity extends Activity
 {
     private TextView name_text;
@@ -331,7 +326,7 @@ public class MenuActivity extends Activity
         @Override
         protected void onPreExecute()
         {
-            progress = ProgressDialog.show(MenuActivity.this, "", "Checking in...", true, false);
+            progress = ProgressDialog.show(MenuActivity.this, "", "Cancelling...", true, false);
         }
 
         @Override

@@ -6,12 +6,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
@@ -22,15 +20,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.concurrent.Callable;
 
-import static android.R.attr.start;
-import static org.joda.time.DateTimeFieldType.secondOfMinute;
-import static org.joda.time.DateTimeZone.UTC;
 
-
+/**
+ * Create Reservation Activity
+ * @author Samuel I. Gunadi
+ */
 public class ReserveActivity extends Activity implements DatePickerFragment.OnDatePickedListener, TimePickerFragment.OnTimePickedListener
 {
 
@@ -130,7 +129,7 @@ public class ReserveActivity extends Activity implements DatePickerFragment.OnDa
 
         start_dt = local_fmt.parseLocalDateTime(start_dt_edit.getText().toString());
         end_dt = local_fmt.parseLocalDateTime(end_dt_edit.getText().toString());
-        price_text.setText("$ " + NumberFormat.getCurrencyInstance().format(Minutes.minutesBetween(start_dt, end_dt).getMinutes() * 10 / 6));
+        price_text.setText(NumberFormat.getCurrencyInstance().format(BigDecimal.valueOf(Minutes.minutesBetween(start_dt, end_dt).getMinutes()).divide(BigDecimal.valueOf(6.0), RoundingMode.CEILING)));
     }
 
     class ReserveAsyncTask extends AsyncTask<String, Void, String>

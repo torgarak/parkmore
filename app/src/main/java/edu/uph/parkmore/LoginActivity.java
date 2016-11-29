@@ -17,6 +17,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+/**
+ * Sign In/Main Activity
+ * @author Samuel I. Gunadi
+ */
 public class LoginActivity extends Activity
 {
     private EditText email_edit;

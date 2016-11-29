@@ -56,11 +56,10 @@
         android:layout_marginTop="14dp"/>
 
     <TextView
-        android:text="TextView"
+        android:text="Warning: Your vehicle will be towed if you did not check out before the end time."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/menu_warning_text"
-        tools:text="Warning: Your vehicle will be towed if you did not check out before the end time."
+        android:id="@+id/reserve_warning_text"
         android:textSize="18sp"
         android:textColor="@android:color/holo_red_dark"
         android:textStyle="normal|bold"
@@ -90,7 +89,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/reserve_button"
         android:text="Reserve Now"
-        android:layout_below="@+id/menu_warning_text"
+        android:layout_below="@+id/reserve_warning_text"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"/>
 

@@ -14,6 +14,10 @@ import org.json.JSONObject;
 
 import java.util.concurrent.Callable;
 
+/**
+ * Sign Up Activity
+ * @author Samuel I. Gunadi
+ */
 public class RegisterActivity extends Activity
 {
 

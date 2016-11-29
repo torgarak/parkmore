@@ -20,11 +20,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.concurrent.Callable;
 
-import static edu.uph.parkmore.ReserveActivity.end_dt;
-import static edu.uph.parkmore.ReserveActivity.start_dt;
+/**
+ * Extend Reservation Activity
+ * @author Samuel I. Gunadi
+ */
 
 public class ExtendActivity extends Activity implements DatePickerFragment.OnDatePickedListener, TimePickerFragment.OnTimePickedListener
 {
@@ -93,7 +97,7 @@ public class ExtendActivity extends Activity implements DatePickerFragment.OnDat
         //merge
         LocalDateTime dt = Global.round_minutes(date.toLocalDateTime(time).toDateTime(), 10).toLocalDateTime();
         end_dt_edit.setText(dt.toString(local_fmt));
-        price_text.setText("$ " + NumberFormat.getCurrencyInstance().format(Minutes.minutesBetween(ReserveActivity.start_dt, dt).getMinutes() * 10 / 6));
+        price_text.setText(NumberFormat.getCurrencyInstance().format(BigDecimal.valueOf(Minutes.minutesBetween(ReserveActivity.start_dt, dt).getMinutes()).divide(BigDecimal.valueOf(6.0), RoundingMode.CEILING)));
     }
 
     class ExtendAsyncTask extends AsyncTask<String, Void, String>

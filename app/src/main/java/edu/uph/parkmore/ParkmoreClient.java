@@ -15,10 +15,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-/**
- * Created by User on 11/16/2016.
- */
 
+/**
+ * HTTP Client
+ * @author Samuel I. Gunadi
+ */
 public class ParkmoreClient
 {
     public static String server_url = "http://127.0.0.1/api/";
