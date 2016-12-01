@@ -22,7 +22,7 @@ public class Global
         new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
-                .setNeutralButton("KTHXBAI", new DialogInterface.OnClickListener()
+                .setNeutralButton("Okay", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
@@ -39,7 +39,7 @@ public class Global
         new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
-                .setNeutralButton("KTHXBAI", new DialogInterface.OnClickListener()
+                .setNeutralButton("Okay", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
