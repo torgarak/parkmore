@@ -1,4 +1,4 @@
-package edu.uph.parkmore;
+package com.samuelgunadi.parkmore;
 
 import android.text.TextUtils;
 
@@ -11,6 +11,7 @@ import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -42,7 +43,7 @@ public class ParkmoreClient
             {
                 connection.setRequestProperty("Cookie", TextUtils.join(";", ParkmoreClient.cookie_mgr.getCookieStore().getCookies()));
             }
-            Writer writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
+            Writer writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8));
             writer.write(json_string);
             writer.close();
             // get cookies

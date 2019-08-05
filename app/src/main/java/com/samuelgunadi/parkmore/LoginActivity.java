@@ -1,4 +1,4 @@
-package edu.uph.parkmore;
+package com.samuelgunadi.parkmore;
 
 import android.Manifest;
 import android.app.Activity;

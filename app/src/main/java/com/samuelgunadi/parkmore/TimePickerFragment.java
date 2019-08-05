@@ -1,4 +1,4 @@
-package edu.uph.parkmore;
+package com.samuelgunadi.parkmore;
 
 import android.app.Activity;
 import android.app.Dialog;
